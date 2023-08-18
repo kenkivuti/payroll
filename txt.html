@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function forgrossalary(basicsalary, benefits) {
+        grossalary = basicsalary + benefits;
+        return grossalary;
+      }
+      let totalgross = forgrossalary(
+        parseInt(prompt("enter basicsalary")),
+        parseInt(prompt("enter benefits"))
+      );
+      console.log("gross :" + totalgross)
+      //    calculate nhif
+
+      function forNHIF(grossalary) {
+        if (grossalary <= 5999) {
+          NHIFContribution = 150;
+        } else if (grossalary >= 6000 && grossalary <= 7999) {
+          NHIFContribution = 300;
+        } else if (grossalary >= 8000 && grossalary <= 11999) {
+          NHIFContribution = 400;
+        } else if (grossalary >= 12000 && grossalary <= 14999) {
+          NHIFContribution = 500;
+        } else if (grossalary >= 15000 && grossalary <= 19999) {
+          NHIFContribution = 600;
+        } else if (grossalary >= 20000 && grossalary <= 24999) {
+          NHIFContribution = 750;
+        } else if (grossalary >= 25000 && grossalary <= 29999) {
+          NHIFContribution = 850;
+        } else if (grossalary >= 30000 && grossalary <= 34999) {
+          NHIFContribution = 900;
+        } else if (grossalary >= 35000 && grossalary <= 39999) {
+          NHIFContribution = 950;
+        } else if (grossalary >= 40000 && grossalary <= 44999) {
+          NHIFContribution = 1000;
+        } else if (grossalary >= 45000 && grossalary <= 49999) {
+          NHIFContribution = 1100;
+        } else if (grossalary >= 50000 && grossalary <= 59999) {
+          NHIFContribution = 1200;
+        } else if (grossalary >= 60000 && grossalary <= 69999) {
+          NHIFContribution = 1300;
+        } else if (grossalary >= 70000 && grossalary <= 79999) {
+          NHIFContribution = 1400;
+        } else if (grossalary >= 80000 && grossalary <= 89999) {
+          NHIFContribution = 1500;
+        } else if (grossalary >= 90000 && grossalary <= 99999) {
+          NHIFContribution = 1600;
+        } else {
+          NHIFContribution = 1700;
+        }
+        return NHIFContribution=0
+      }
+
+      let calcnhif=forNHIF(totalgross);
+
+      
+
+    
+      //   calculate nssf
+
+      function forNSSF(grossalary, NSSFrate = 0.06) {
+        let NSSF = grossalary * 0.06;
+
+        if (grossalary <= 18000) {
+          NSSF = grossalary * 0.06;
+        } else {
+          NSSF = 18000 * 0.06;
+        }
+        return NSSF;
+      }
+
+      let calcnssf= forNSSF(totalgross, NSSFrate = 0.06);
+
+      console.log("nssf :" + calcnssf)
+      //   calculate nhdf
+
+      function forNHDF(totalgross,NHDFrate = 0.03){
+        let NHDF = grossalary * 0.015;
+        return NHDF;
+      }
+      let calcnhdf = forNHDF(totalgross,NHDFrate =0.03)
+      console.log("nhdf :" + calcnhdf)
+      
+      //   calculate taxableincome
+      function forTaxableIncome(grossalary, NSSF, NHDF) {
+        let taxableincome = grossalary - (NSSF + NHDF);
+        return taxableincome;
+      }
+
+      let taxableincome= forTaxableIncome(
+        totalgross,
+        forNSSF(totalgross),
+        forNHDF(totalgross)
+      );
+
+      console.log("ti  :" + taxableincome);
+
+      function forpayee(taxableincome){
+        tx = 0;
+        if (taxableincome > 0 && taxableincome <= 24000) {
+          tx = ((24000 * 0.1) - 2400)
+      } else if (taxableincome > 24000 && taxableincome <= 32333) {
+        tx = ((taxableincome * 0.1) + (8333 * 0.25)- 2400);
+        
+      } else {
+        tx = ((24000 * 0.01) +(8333 * 0.25) +((taxableincome - 32333) * 0.3)- 2400);
+         return tx;
+      
+      }
+      }
+
+      let calcpayee = forpayee(taxableincome)
+      console.log("payee :" + calcpayee)
+
+      function fornet(grossalary,NHDF,tx,NHIFContribution){
+        netpay = grossalary - (NHDF + NHIFContribution + tx)
+        return netpay;
+      }
+      let calcnetpay =  fornet(totalgross,calcnhdf,calcpayee,calcnhif)
+      console.log(calcnetpay)
+    </script>
+  </body>
+</html>
