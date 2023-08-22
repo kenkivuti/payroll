@@ -1,6 +1,5 @@
 let myform = document.getElementById("myform");
 
-
 myform.addEventListener("submit", function getdata(e) {
   //Prevent the webpage from refreshing
   e.preventDefault();
@@ -14,14 +13,37 @@ myform.addEventListener("submit", function getdata(e) {
     let basic = document.getElementById("basicsalary").value;
     let benefits = document.getElementById("benefits").value;
 
-    alert(basic+benefits);
+    let gs = forgrossalary(basicsalary,benefits)
+    document.getElementById("gross") = gs
 
-    document.getElementById("error").innerText = forgrossalary(basic, benefits);
+    
+
+    let ns = forNSSF(gs)
+    document.getElementById("nssf") = ns
+
+    let nhd = fornhdf(gs)
+    document.getElementById("nhdf") = nhd
+
+    let nhi = fornhif(gs)
+    document.getElementById("nhif") = nhi
+ 
   }
 });
-function forgrossalary(x, y) {
-  z = Number(x) + Number(y);
-  return z;
+
+function forgrossalary(basicsalary, benefits) {
+  grossalary = basicsalary + benefits;
+  return grossalary;
+}
+
+function forNSSF(grossalary, NSSFrate = 0.06) {
+  let NSSF = grossalary * 0.06;
+
+  if (grossalary <= 18000) {
+    NSSF = grossalary * 0.06;
+  } else {
+    NSSF = 18000 * 0.06;
+  }
+  return NSSF;
 }
 
 
